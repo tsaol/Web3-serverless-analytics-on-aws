@@ -1,9 +1,9 @@
-# **Web3** 在AWS上无服务分析
+# **Web3** 在AWS无服务分析
 
-* [English version](./README.md)
+* [Web3 Serverless Analytics English version](./README.md)
 
 ## **目标**
-这是一个使用以太坊分析的Workshop，将带您了解如何使用 aws 无服务器服务来分析区块链数据。 本次Workshop提供以下内容：
+这是一个以太坊数据分析的Workshop，将带您了解如何使用 aws 无服务器服务来分析区块链数据。 本次Workshop提供以下内容：
 * 在 AWS EC2 上托管一个以太坊全节点。
 * 使用来自以太坊全节点的 Lambda 处理数据，然后写入 kinesis。
 * 从运动学到数据仓库 RedShift 的流式数据摄取。
@@ -11,11 +11,11 @@
 
 ## **AWS 服务包括**
 
-* EC2 Graviton
-* Kinesis Data Stream
-* RedShift Serverless
-* QuickSight
-* Lambda
+* Amazon EC2 Graviton
+* Amazon Kinesis Data Stream
+* Amazon RedShift Serverless
+* Amazon QuickSight
+* Amazon Lambda
 
 ## 架构图
 
