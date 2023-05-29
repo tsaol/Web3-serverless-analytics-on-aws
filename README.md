@@ -1,6 +1,6 @@
 # **Web3** **Serverless** Analytics
 
-* [中文版本 Web3 无服务分析](./README_CN.md)
+* [Web3 无服务分析 中文版本](./README_CN.md)
 
 ## **Goals**
 It is a  workshop for use Ethereum analysis use case to walk you through how to use aws serverless services to analyze blockchain data. this workshop provides the following:
