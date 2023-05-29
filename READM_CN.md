@@ -1,15 +1,15 @@
-# **Web3** **Serverless** Analytics
+# **Web3** 在AWS上无服务分析
 
-* [中文版本](./README.md)
+* [English version](./README.md)
 
-## **Goals**
-It is a  workshop for use Ethereum analysis use case to walk you through how to use aws serverless services to analyze blockchain data. this workshop provides the following:
-* Host an Ethereum full node on AWS EC2.
-* Process data using Lambda  from  Ethereum full node and then write into kinesis.
-* Streaming data ingestion from kinesis to data warehouse RedShift.
-* Visual analysis of Ethereum transaction data stored in RedShift. 
+## **目标**
+这是一个使用以太坊分析的Workshop，将带您了解如何使用 aws 无服务器服务来分析区块链数据。 本次Workshop提供以下内容：
+* 在 AWS EC2 上托管一个以太坊全节点。
+* 使用来自以太坊全节点的 Lambda 处理数据，然后写入 kinesis。
+* 从运动学到数据仓库 RedShift 的流式数据摄取。
+* 存储在 RedShift 中的以太坊交易数据的可视化分析。
 
-## **AWS Services Including**
+## **AWS 服务包括**
 
 * EC2 Graviton
 * Kinesis Data Stream
@@ -17,20 +17,20 @@ It is a  workshop for use Ethereum analysis use case to walk you through how to 
 * QuickSight
 * Lambda
 
-## Architecture Diagram
+## 架构图
 
 ![](./assets/architecture.jpg)
 
-## step-by-step 
-1. Set up an Ethereum FullNode on EC2 for sync Ethereum Mainnet data.
-2. Extract bock data to kinesis using Ethereum ETL.
-3. Process the data using lambda and deliver processed message to another kinesis.
-4. Ingestion data from kinesis data stream to RedShift Serverless using streaming ingestion.
-5. Query data using QuickSight.
+## 步骤
+1. 在 EC2 上设置以太坊全节点，用于同步以太坊主网数据。
+2. 使用 Ethereum ETL 将 bock 数据提取到 kinesis。
+3. 使用 lambda 处理数据并将处理后的消息传递给另一个kinesis。
+4. 使用流式摄取从运动数据流摄取数据到 RedShift Serverless。
+5. 使用 QuickSight 查询数据。
 
 
-## 1. Fetching Ethereum Block Data
-Ethereum from Proof of Work (PoW) to Proof of Stake (PoS) on September 2022. In order to deploy full nodes we need both execution client and consensus client.
+## 1. 获取以太坊区块数据
+2022 年 9 月，以太坊从工作量证明 (PoW) 到权益证明 (PoS)。为了部署完整节点，我们需要执行客户端和共识客户端。
 
 
     * **Instance Type** : m6g.2xlarge
@@ -41,7 +41,7 @@ Ethereum from Proof of Work (PoW) to Proof of Stake (PoS) on September 2022. In 
 
 1.1 **execution client**: **Geth**
 
-Installing Geth on Ubuntu
+安装 Geth on Ubuntu
 
 ```bash
 sudo add-apt-repository ppa:ethereum/ethereum
@@ -49,7 +49,7 @@ sudo apt-get update -y
 sudo apt-get upgrade -y
 sudo apt-get install ethereum -y
 ```
-Start Geth process
+开始 Geth 进程
     
 ```bash
 /usr/bin/geth --authrpc.addr localhost --authrpc.port 8551 --authrpc.vhosts localhost --authrpc.jwtsecret /tmp/jwtsecret --syncmode snap --http --http.api personal,eth,net,web3,txpool --http.corsdomain *
@@ -61,18 +61,18 @@ Start Geth process
    cd ~ curl -LO https://github.com/sigp/lighthouse/releases/download/v4.0.1/lighthouse-v4.0.1-x86_64-unknown-linux-gnu.tar.gz 
    tar -xvf lighthouse-v4.0.1-x86_64-unknown-linux-gnu.tar.gz`
    ```
-Start Lighthouse  process
+启动 Lighthouse进程
 
 ```bash
 lighthouse bn --network mainnet --execution-endpoint http://localhost:8551 --execution-jwt /tmp/jwtsecret --checkpoint-sync-url=https://mainnet.checkpoint.sigp.io  --disable-deposit-contract-sync
 ```
 
-   1.3 **interacting with the Geth**
+   1.3 **和Geth交互**
    ```bash
     geth attach <datadir>/geth.ipc
    ```
 
-   1.4 **check  eth.syncing status**
+   1.4 **检查  eth.syncing 状态**
    ```bash
    eth.syncing
    ```
@@ -86,12 +86,12 @@ lighthouse bn --network mainnet --execution-endpoint http://localhost:8551 --exe
    
   
 
-## **2. Extract block data to kinesis**
-2.1 Create Kinesis Data Streaming 
+## **2. 抽取区块链数据到Kinesis**
+2.1 创建 Kinesis Data Streaming 
 * Create Kinesis 
   * blockchain-kinesis-t
   * blockchain-kinesis
-2.2 Process data using lambda(python 3.8)
+2.2 通过Lambda处理数据(python 3.8)
 ``` python
 import json
 import time
@@ -120,11 +120,11 @@ def lambda_handler(event, context):
         Records=result_records
     )
 ```
-**Installing Ethereum ETL**
+**安装 Ethereum ETL**
 
 `sudo apt install python3-pip`
 
-Extract data from nodes to Kinesis using EthereumETL
+通过EthereumETL抽取数据到Kinesis
 * 2.2 Ethereum ETL 
     * Extract data to kiniesis
     ```
@@ -136,8 +136,8 @@ Extract data from nodes to Kinesis using EthereumETL
 ![](./assets/kinesis-1.jpg)
 
 
-## 3. ingestion data to RedShift
-3.1   Create a materialized view for streaming ingestion
+## 3. 摄入数据到RedShift
+3.1   创建物化视图用于 streaming ingestion
 Create an external schema to map the data from Kinesis Data Streams to an Amazon Redshift :
 ```
 CREATE EXTERNAL SCHEMA kdsblockchain
@@ -173,14 +173,14 @@ JSON_EXTRACT_PATH_TEXT(FROM_VARBYTE(kinesis_data, 'utf-8'),'item_id')::TEXT as i
 JSON_EXTRACT_PATH_TEXT(FROM_VARBYTE(kinesis_data, 'utf-8'),'item_timestamp')::TEXT as item_timestamp
 FROM kdsblockchain."blockchain-kinesis" where JSON_EXTRACT_PATH_TEXT(FROM_VARBYTE(kinesis_data, 'utf-8'),'type') in ('block');
 ```
-Data is ingested to RedShfit using Redshfit Stream Ingestion
+通过Redshfit Stream Ingestion摄取数据到RedShift Serverless
 
-3.3 Query Data through Redshfit Query editor
+3.3 通过 Redshfit Query editor 查询数据
 ![](./assets/redshift-data.jpg)
 
 
 
-## 4. Query data using QuickSight
+## 4. 通过QuickSight查询数据
 
 ![](./assets/quicksight.jpg)
 
