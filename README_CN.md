@@ -1,8 +1,8 @@
 # **Web3** 在AWS无服务分析
 
 * [Web3 Serverless Analytics English version](./README.md)
-* 
-[https://catalog.us-east-1.prod.workshops.aws/workshops/43c8d1d4-2d06-430f-83be-ee1d3ba2df77/en-US/3-autodeployment/1-cloud9](https://catalog.us-east-1.prod.workshops.aws/workshops/43c8d1d4-2d06-430f-83be-ee1d3ba2df77/en-US)
+  
+ workshop 链接 ： [https://catalog.us-east-1.prod.workshops.aws/workshops/43c8d1d4-2d06-430f-83be-ee1d3ba2df77/en-US/3-autodeployment/1-cloud9](https://catalog.us-east-1.prod.workshops.aws/workshops/43c8d1d4-2d06-430f-83be-ee1d3ba2df77/en-US)
 
 ## **目标**
 这是一个以太坊数据分析的Workshop，将带您了解如何使用 aws 无服务器服务来分析区块链数据。 本次Workshop提供以下内容：
