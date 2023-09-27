@@ -1,4 +1,4 @@
-# **Web3** **Serverless** Analytics
+# **Web3** **Serverless** Analytics on AWS
 
 * [Web3 无服务分析 中文版本](./README_CN.md)
 
