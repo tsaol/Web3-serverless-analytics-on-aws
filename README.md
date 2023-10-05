@@ -4,12 +4,10 @@ We will use Ethereum as an example to walk you through the steps required to bui
 * [中文文档 点这里](./README_CN.md)
 
 
-## **An overview of the solution**
+## **Solution Overview**
 
 ![](./assets/architecture.jpg)
 
-
-## **step by step**
 1. Deploy an Ethereum full node on the Amazon EC2 Graviton instance to synchronize Ethereum blockchain mainnet data.
 2. Use Ethereum ETL to extract block, transaction and other data to Amazon Kinesis Data Stream.
 3. Use AWS Lambda to process the data and write it to another Kinesis Data Stream.
