@@ -1,4 +1,4 @@
-# **Web3** **Serverless** Analytics Solution on AWS
+# **Web3** **Serverless** Analytics Solution
 We will use Ethereum as an example to walk you through the steps required to build a serverless blockchain analysis pipeline on AWS.
 
 * [中文文档 点这里](./README_CN.md)
