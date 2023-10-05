@@ -1,10 +1,10 @@
 # **Web3** **Serverless** Analytics Solution on AWS
+We will use Ethereum as an example to walk you through the steps required to build a serverless blockchain analysis pipeline on AWS.
 
-we will use Ethereum as an example to walk you through the steps required to build a serverless blockchain analysis pipeline on AWS.
+* [中文文档 点这里](./README_CN.md)
 
-* [Web3 无服务分析中文版本 点这里](./README_CN.md)
 
-## An overview of the blockchain analysis solution
+## An overview of the solution
 
 ![](./assets/architecture.jpg)
 
@@ -13,6 +13,7 @@ we will use Ethereum as an example to walk you through the steps required to bui
 3. Use AWS Lambda to process the data and write it to another Kinesis Data Stream.
 4. Ingest data from Kinesis Data Streams into Amazon Redshift Serverless in real time for analysis through the feature streaming ingestion.
 5. Visualize data with Amazon QuickSight.
+
 
 ## **AWS Services Including**
 
